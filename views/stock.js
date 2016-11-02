@@ -1,7 +1,7 @@
 $(function () {
     var names = ["GOOG", "AAPL"];
         
-    var socket = io("https://nightlife-coordination-huytr225.c9users.io/");
+    var socket = io();
     $('form').submit(function(){
         var name = $('#addname').val();
         $.getJSON('/check/'+name,  function (data){
