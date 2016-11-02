@@ -17,10 +17,17 @@ $(function () {
         $('#addname').val('');
         return false;
     });
+    
+    $('.btn').click(function(e){
+        e.preventDefault();
+        alert("hi");
+        alert($(this).attr("value"));
+       /*$('h3').remove("#")*/
+    });
     socket.on('create stock', function(name){
         names.push(name);
         generateChart(names,function() {});
-        $('#companyname').append($('<li>').text(name));
+        $('#companyname').append("<h3><button class='btn btn-danger' val='"+ name +"'>X</button> "+name+"</h3>");
     });
     function compareName(arr, name){
         name = name.toUpperCase();

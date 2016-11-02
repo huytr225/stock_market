@@ -13,8 +13,8 @@ var name = db.model('name', nameSchema);
 var uristring =
 /*'mongodb://huy:huy@ds135797.mlab.com:35797/polls_app'||*/
 process.env.MONGOLAB_URI ||
-process.env.MONGOHQ_URL ||
-'mongodb://localhost/polls';
+process.env.MONGOHQ_URL /*||
+'mongodb://localhost/polls'*/;
 
 // Makes connection asynchronously.  Mongoose will queue up database
 // operations and release them when the connection is complete.
