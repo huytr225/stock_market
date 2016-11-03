@@ -67,9 +67,6 @@ $(function () {
             title: {
                 text: 'Stock Live'
             },
-            subtitle: {
-                text: 'by Huy Tran'
-            },
             chart: {
                 borderColor: '#183152',
                 borderWidth: 4,
