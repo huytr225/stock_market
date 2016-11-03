@@ -13,7 +13,7 @@
     
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="/loading.css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,10 +31,15 @@
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <div class="container">
             <div id="container" style="width:100%; height:400px;"></div>
-            <div id="mes"></div>
-            <div id="companyname"></div>
+            <div id="loader"></div>
+            <div id="companyname">
+                <h3 id='AAPL' ><button class='btn btn-danger' val='AAPL' >X</button> Apple Inc (AAPL)</h3>
+                <h3 id='FB' ><button class='btn btn-danger' val='FB' >X</button> Facebook Inc. (FB)</h3>
+                <h3 id='MSFT' ><button class='btn btn-danger' val='MSFT' >X</button> Microsoft Corporation (MSFT)</h3>
+            </div>
             <form action="">
-              <input id="addname" autocomplete="off" /><button>Add</button>
+              <label for="addname">&gt;</label>
+              <input id="addname" autocomplete="off" />
             </form>
    </div>
 

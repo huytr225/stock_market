@@ -13,15 +13,12 @@ app.use(express.static(process.cwd() + '/views'));
 app.use('/', routes);
 
 io.on('connection', function(socket){
-  socket.on('add name', function(name){
-    io.emit('create stock', name);
-  });/*
-  socket.on('not found', function(){
-    io.emit('not found');
+  socket.on('add name', function(data){
+    io.emit('create stock', data);
   });
-  socket.on('already have', function() {
-     io.emit('already have'); 
-  });*/
+  socket.on('remove name', function(name){
+    io.emit('remove stock', name);
+  });
 });
 
 server.listen(port);

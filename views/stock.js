@@ -1,34 +1,53 @@
 $(function () {
-    var names = ["GOOG", "AAPL"];
+    var names = ["FB", "AAPL", "MSFT"];
         
     var socket = io();
     $('form').submit(function(){
-        var name = $('#addname').val();
+       $("#loader").addClass("loader");
+        var name = $('#addname').val().toUpperCase();
         $.getJSON('/check/'+name,  function (data){
             if(data.statusCode == "not found"){
                 alert("Incorrect or not existing stock code");
+                $("#loader").removeClass("loader");
             } else if(!compareName(names,name)){
                 alert('Already existing stock code');
-                
+                $("#loader").removeClass("loader");
             } else {
-                socket.emit('add name', name);
+                socket.emit('add name', data);
             }
         });
         $('#addname').val('');
         return false;
     });
     
-    $('.btn').click(function(e){
-        e.preventDefault();
-        alert("hi");
-        alert($(this).attr("value"));
-       /*$('h3').remove("#")*/
+    $('#companyname').on('click','button', function(){
+        if(names.length > 1){
+            var name =  $(this).attr("val");
+            $("#loader").addClass("loader");
+            socket.emit('remove name', name);
+        } else {
+            alert("Cannot delete");    
+        }   
     });
-    socket.on('create stock', function(name){
-        names.push(name);
-        generateChart(names,function() {});
-        $('#companyname').append("<h3><button class='btn btn-danger' val='"+ name +"'>X</button> "+name+"</h3>");
+    
+    socket.on('create stock', function(data){
+        var name = data.name.slice(0, data.name.indexOf(" Prices, Dividends, Splits and Trading Volume"));
+        names.push(data.symbol);
+        generateChart(names,function() {
+            $('#companyname').append("<h3 id='"+data.symbol+"' ><button class='btn btn-danger' val='"+ data.symbol +"' >X</button> "+name+"</h3>");
+            $("#loader").removeClass("loader");
+        });
     });
+    socket.on('remove stock', function(name){
+        var index = names.indexOf(name);
+        names.splice(index,1);
+        generateChart(names,function(){
+            $('#'+name).remove();
+            $("#loader").removeClass("loader");
+        });
+    });
+    
+    
     function compareName(arr, name){
         name = name.toUpperCase();
         for(var i = 0; i < arr.length; i++){
@@ -52,7 +71,9 @@ $(function () {
                 text: 'by Huy Tran'
             },
             chart: {
-                backgroundColor:'#FFFFFF'
+                borderColor: '#183152',
+                borderWidth: 4,
+                backgroundColor:'#F5F5F5'
             },
             rangeSelector: {
                 selected: 2,
@@ -113,6 +134,6 @@ $(function () {
         });
     }
     generateChart(names,function(){});
-     
+    
     
 });
